@@ -1,0 +1,172 @@
+<div class="card hidden">
+  <div class="content">
+    Apricot
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Apricot
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Cucumber
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Cucumber
+  </div>
+</div>
+
+
+
+<div class="card hidden">
+  <div class="content">
+    Strawberry
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Cheese
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Banana
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Brie
+  </div>
+</div>
+
+
+
+
+<div class="card hidden">
+  <div class="content">
+    Muffin
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Racoon
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Brie
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Cheese
+  </div>
+</div>
+
+
+
+
+<div class="card hidden">
+  <div class="content">
+    Banana
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Muffin
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Strawberry
+  </div>
+</div>
+
+<div class="card hidden">
+  <div class="content">
+    Racoon
+  </div>
+</div>
+
+<script>
+  var cards = document.querySelectorAll(".card");
+  console.log(cards);
+  var flippedCards = [];
+  var flipping = false;
+  [].forEach.call(cards, function(card){
+    console.log(card);
+    card.addEventListener("click", function(){
+      if (flipping){
+        return;
+      }
+      var cardOne;
+      var cardTwo;
+      console.log("clicked");
+      if (card.classList.contains("hidden")){
+        console.log("flipped");
+        card.classList.remove("hidden");
+        flippedCards.push(card);
+        cardOne = flippedCards[0];
+        cardTwo = flippedCards[1];
+        console.log(flippedCards);
+        if (flippedCards.length === 2){
+          flipping = true;
+          console.log (flippedCards);
+          console.log (cardOne);
+          console.log (cardTwo);
+          if (cardOne.querySelector(".content").textContent === cardTwo.querySelector(".content").textContent){
+            console.log ("We have a match <3");
+            cardOne.classList.add("match");
+            cardTwo.classList.add("match");
+            flipping = false;
+            flippedCards = [];
+          } else {
+            setTimeout(function (){
+              cardOne.classList.add("hidden");
+              cardTwo.classList.add("hidden");
+              flipping = false;
+            }, 3000);
+            flippedCards = [];
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+.card {
+  margin: 8px;
+  display: inline-block;
+  border: solid pink 3px;
+  border-radius: 3px;
+  height: 200px;
+  width: 150px;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.hidden .content {
+  visibility: hidden;
+}
+
+.match {
+  background-color: gold;
+}
+</style>
