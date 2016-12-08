@@ -1,108 +1,43 @@
-<div class="card hidden">
-  <div class="content">
-    Apricot
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Apricot
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Cucumber
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Cucumber
-  </div>
-</div>
-
-
-
-<div class="card hidden">
-  <div class="content">
-    Strawberry
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Cheese
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Banana
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Brie
-  </div>
-</div>
-
-
-
-
-<div class="card hidden">
-  <div class="content">
-    Muffin
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Racoon
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Brie
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Cheese
-  </div>
-</div>
-
-
-
-
-<div class="card hidden">
-  <div class="content">
-    Banana
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Muffin
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Strawberry
-  </div>
-</div>
-
-<div class="card hidden">
-  <div class="content">
-    Racoon
-  </div>
-</div>
-
+<body>
 <script>
+
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+var cardArray = ["apple", "apricot", "banana", "cherry", "grape", "lemon", "orange", "pear", "pinapple", "plum", "strawberry", "watermelon"];
+cardArray = cardArray.concat(cardArray.slice());
+cardArray = shuffle(cardArray);
+cardArray.forEach(function(fruit){
+  var card = document.createElement("div");
+  var image = document.createElement("img");
+  image.src = "./images/"+fruit+".jpg";
+  card.appendChild(image);
+  card.classList.add("card");
+  card.classList.add("hidden");
+  var container = document.createElement("div");
+  container.classList.add("content");
+  container.textContent = fruit;
+  card.appendChild(container);
+  document.body.appendChild(card);
+});
+
   var cards = document.querySelectorAll(".card");
   console.log(cards);
   var flippedCards = [];
@@ -110,11 +45,17 @@
   [].forEach.call(cards, function(card){
     console.log(card);
     card.addEventListener("click", function(){
-      if (flipping){
-        return;
-      }
       var cardOne;
       var cardTwo;
+      if (flipping){
+        cardOne = flippedCards[0];
+        cardTwo = flippedCards[1];
+        cardOne.classList.add("hidden");
+        cardTwo.classList.add("hidden");
+        flipping = false;
+        flippedCards = [];
+        return;
+      }
       console.log("clicked");
       if (card.classList.contains("hidden")){
         console.log("flipped");
@@ -135,12 +76,11 @@
             flipping = false;
             flippedCards = [];
           } else {
-            setTimeout(function (){
-              cardOne.classList.add("hidden");
-              cardTwo.classList.add("hidden");
-              flipping = false;
-            }, 3000);
-            flippedCards = [];
+            // setTimeout(function (){
+            //   cardOne.classList.add("hidden");
+            //   cardTwo.classList.add("hidden");
+            //   flipping = false;
+            // }, 3000);
           }
         }
       }
@@ -154,7 +94,7 @@
   display: inline-block;
   border: solid pink 3px;
   border-radius: 3px;
-  height: 200px;
+  height: 150px;
   width: 150px;
 }
 
@@ -162,7 +102,11 @@
   cursor: pointer;
 }
 
-.hidden .content {
+.hidden img {
+  visibility: hidden;
+}
+
+.content {
   visibility: hidden;
 }
 
@@ -170,3 +114,4 @@
   background-color: gold;
 }
 </style>
+</body>
